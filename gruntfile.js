@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		clean: {
 			sdk: ['client-sdk/compile'],
-			server: ['server/compile/**/*', '!server/compile/node_modules/**', '!server/compile/package.json'] 
+			server: ['server/**/*.js', 'server/**/*.js.map'] 
 		},
 		shell: {		
 			exec: {

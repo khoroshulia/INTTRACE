@@ -5,5 +5,4 @@ node_modules
 client-sdk/js/compile
 demo/client/js/tracekit.js
 
-server/compile/*
-!server/compile/package.json
+server/*.js.map

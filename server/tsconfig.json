@@ -4,10 +4,11 @@
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
-        "outDir": "compile",
-        "sourceRoot": "src",
         "sourceMap": true,
         "target": "ES5",
         "watch": true
-    }
+    },
+    "files": [
+        "**/*.ts"
+    ]
 }
