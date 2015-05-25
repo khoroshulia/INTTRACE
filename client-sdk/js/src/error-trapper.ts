@@ -6,7 +6,10 @@
  */
 class ErrorTrapper {
 	
-	errorReporter: ErrorReporter;
+	private errorReporter: ErrorReporter;
+	
+	private isDetectInitiated: boolean = false;
+	private detectFunction: EventListener;
 	
 	constructor (errorReporter: ErrorReporter) {
 		this.errorReporter = errorReporter;
@@ -15,34 +18,46 @@ class ErrorTrapper {
 	/**
 	 * @desc detect errors
 	 */
-	detect () {
+	public detect () {
+		if (this.isDetectInitiated) {
+			return this;
+		}
+		this.isDetectInitiated = true;
 		var self:ErrorTrapper = this;
-		window.onerror = function ErrorTrapper_detect(event: any, source?: string, fileno?: number, columnNumber?: number, error?: Error) {
+		
+		this.detectFunction = function ErrorTrapper_detect(event: any, source?: string, fileno?: number, columnNumber?: number, error?: Error) {
 			self.performDetected(error);
 			return true;
 		};
+		//Dumb error handler
+		window.onerror = function () {
+			return !self.errorReporter.tracekit.logDefaultErrors;
+		};
+		window.addEventListener('error', this.detectFunction);
 	}
 	
-	performDetected (error?: Error) {
+	/**
+	 * Send error with wrapped error
+	 */
+	private performDetected (error?: Error) {
 		if (error) {
 			this.errorReporter.send(error);
 		} else {
 			error = new Error('Onerror: reported by onError event');
 			this.errorReporter.send(error);
 		}
-		console.log('Captured Error', error, '. Logged to system.');
 	}
 	
 	/**
 	 * @desc Throw custom error (for auto capturing)
 	 * @param {Error} err Javascript error
 	 */
-	throwErr (error: Error): void {
+	public throwErr (error: Error): void {
 		this.performDetected(error);
 	}
 	
-	destroy () {
-		
+	public destroy () {
+		window.removeEventListener('onerror', this.detectFunction);
 	}
 	
 }

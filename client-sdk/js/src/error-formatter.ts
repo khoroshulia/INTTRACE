@@ -4,13 +4,16 @@
 class ErrorFormatter {
 	
 	private lineReg: RegExp = /\s\(?[\S\w]+:(\d+):\d+\)?/gi;
-	
 	private columnReg: RegExp = /\s\(?[\S\w]+:\d+:(\d+)\)?/gi;
-	
 	private fileReg: RegExp = /\s\(?([\S\w]+):\d+:\d+\)?/gi;
-	
 	private nameReg: RegExp = /(?:at\s)(\S\w+)(?:\s\()/gi;
-	
+
+	/**
+	 * Match regular expression
+	 * @param {Error} err Original Error
+	 * @param {RegEx} reg Regular expression to match
+	 * @return {Array.<string>}
+	 */
 	private match (err: Error, reg: RegExp):Array<string> {
 		var match: Array<string> = [],
 			current: Array<string>;
@@ -27,7 +30,7 @@ class ErrorFormatter {
 	  * @param {Object} err Original Error
 	  * @returns Formatted error
 	  */
-	format (err: Error):CustomError {
+	public format (err: Error):CustomError {
 		var lines: Array<string> = this.match(err, this.lineReg),
 			columns: Array<string> = this.match(err, this.columnReg),
 			files: Array<string> = this.match(err, this.fileReg),

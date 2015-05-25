@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "out": "compile/tracekit.js",
-        "target": "ES5",
-        "watch": true
+        "target": "ES5"
     },
     "files": [
         "src/tracekit.ts"

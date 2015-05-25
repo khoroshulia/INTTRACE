@@ -64,7 +64,10 @@ interface TracekitServerData {
 interface AjaxOptions {
 	url: string;
 	type?: string;
-	data?: TracekitServerData;
+	data?: string;
+	beforeSend?: Function;
+	success?: EventListener;
+	error?: EventListener;
 }
 
 /**
@@ -82,4 +85,5 @@ interface InitObject {
 	user?: string;
 	appVersion?: string;
 	autoCapture?: boolean;
+	logDefaultErrors?: boolean
 }

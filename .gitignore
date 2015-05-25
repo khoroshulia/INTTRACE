@@ -1,3 +1,5 @@
 node_modules
 .idea
 compile
+
+demo/client/js/tracekit.js

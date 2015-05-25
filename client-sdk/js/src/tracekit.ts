@@ -11,11 +11,12 @@
  */
 class TraceKit {
 	
-	domain: string;
-	key: string;
-	user: string;
-	appVersion: string;
-	autoCapture: boolean = false;
+	public domain: string;
+	public key: string;
+	public user: string;
+	public appVersion: string;
+	public autoCapture: boolean = false;
+	public logDefaultErrors: boolean = false;
 	
 	private errorFormatter: ErrorFormatter;
 	private errorReporter: ErrorReporter;
@@ -37,12 +38,13 @@ class TraceKit {
 	 * @param {Boolean} initObject.autoCapture enable auto capturing errors (window.onerror)
 	 * @returns this
 	 */
-	init(initObject: InitObject) {
+	public init(initObject: InitObject) {
 		this.domain = initObject.domain;
 		this.key = initObject.key;
 		this.user = initObject.user;
 		this.appVersion = initObject.appVersion;
 		this.autoCapture = initObject.autoCapture;
+		this.logDefaultErrors = initObject.logDefaultErrors;
 		return this.initiate();
 	}
 	
@@ -58,7 +60,7 @@ class TraceKit {
 	 * @param {String} user Username
 	 * @returns this
 	 */
-	setUser (user: string) {
+	public setUser (user: string) {
 		this.user = user;
 		return this;
 	}
@@ -68,7 +70,7 @@ class TraceKit {
 	 * @param {String} version App version
 	 * @returns this
 	 */
-	setVersion (version: string) {
+	public setVersion (version: string) {
 		this.appVersion = version;
 		return this
 	}
@@ -79,7 +81,7 @@ class TraceKit {
 	 * @param {Object} [data] Optional data to send
 	 * @returns promise
 	 */
-	send (err: Error, data?: any): any {
+	public send (err: Error, data?: any): any {
 		return this.errorReporter.send(err, data);
 	}
 	
@@ -88,7 +90,7 @@ class TraceKit {
 	 * @param {Error} err Javascript error
 	 * @returns promise
 	 */
-	throwErr (err: Error) {
+	public throwErr (err: Error) {
 		this.errorTrapper.throwErr(err);
 		return this;
 	}
@@ -99,7 +101,7 @@ class TraceKit {
 	 * @param {Object} [data] Optional data to send
 	 * @returns this
 	 */
-	checkpoint (message: string, data?: any) {
+	public checkpoint (message: string, data?: any) {
 		this.errorReporter.checkpoint(message, data);
 		return this;
 	}
@@ -108,7 +110,7 @@ class TraceKit {
 	 * @desc Attach auto detection, if passed autoCapture=false
 	 * @returns this;
 	 */
-	attach () {
+	public attach () {
 		this.errorTrapper.detect();
 		return this;
 	}
@@ -116,7 +118,7 @@ class TraceKit {
 	/**
 	 * @desc Disable auto tracking
 	 */
-	destroy () {
+	public destroy () {
 		this.errorTrapper.destroy();
 	}
 	

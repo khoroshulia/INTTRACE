@@ -1,5 +1,5 @@
 _Tracekit.init({
-	domain: "https://tracekit.io",
+	domain: "http://0.0.0.0:8080",
 	key: "key",
 	user: "Testuser",
 	version: "0.0.1",

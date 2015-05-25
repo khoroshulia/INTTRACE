@@ -10,7 +10,7 @@ class ErrorReporter {
 	private checkpoints: Array<Checkpoint>;
 	
 	private errorFormatter: ErrorFormatter;
-	private tracekit: TraceKit;
+	public tracekit: TraceKit;
 	
 	constructor	(errorFormatter: ErrorFormatter, tracekit: TraceKit) {
 		this.errorFormatter = errorFormatter;
@@ -26,7 +26,14 @@ class ErrorReporter {
 	 */
 	private ajax (options: AjaxOptions) {
 		options.type = options.type || 'get';
-		console.log(options);
+		var xhr:XMLHttpRequest = new XMLHttpRequest();
+		xhr.open(options.type, options.url, true);
+		xhr.setRequestHeader('Content-Type', 'application/json');
+		xhr.addEventListener('load', options.success, false);
+		xhr.addEventListener('error', options.error, false);
+		xhr.addEventListener('abort', options.error, false);
+		xhr.send(options.data || '');
+		return xhr;
 	}
 	
 	/**
@@ -35,19 +42,22 @@ class ErrorReporter {
 	 * @param {Object} [data] Optional data to send
 	 */
 	public send (err: Error, data?: any):void {
+		var serverData: TracekitServerData;
+		serverData = {
+			errorDescription: {
+				error: this.errorFormatter.format(err),
+				data: data,
+				checkpoints: this.checkpoints,
+				user: this.tracekit.user,
+				appVersion: this.tracekit.appVersion
+			},
+			key: this.tracekit.key
+		};
+		console.log('Captured Error', serverData.errorDescription, '. Logged to system.');
 		this.ajax({
 			url: `${this.tracekit.domain}/error`,
 			type: "post",
-			data: {
-				errorDescription: {
-					error: this.errorFormatter.format(err),
-					data: data,
-					checkpoints: this.checkpoints,
-					user: this.tracekit.user,
-					appVersion: this.tracekit.appVersion
-				},
-				key: this.tracekit.key
-			}
+			data: JSON.stringify(serverData)
 		});
 		this.checkpoints = [];
 	}
