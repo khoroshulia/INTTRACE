@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "out": "compile/tracekit.js",
+        "target": "ES5",
+        "watch": true
+    },
+    "files": [
+        "src/tracekit.ts"
+    ]
+}

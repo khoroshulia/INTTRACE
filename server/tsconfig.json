@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "dist",
+        "sourceRoot": "src",
+        "sourceMap": true,
+        "target": "ES5",
+        "watch": true
+    }
+}

@@ -1,0 +1,13 @@
+{
+	"name": "INTTRACE",
+	"version": "0.0.1",
+	"description": "**",
+	
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-shell": "*",
+		"load-grunt-tasks": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-clean": "*"
+	}
+}
