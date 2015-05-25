@@ -1,0 +1,5 @@
+# Install
+
+```
+tsd reinstall
+```

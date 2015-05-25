@@ -6,3 +6,4 @@ client-sdk/js/compile
 demo/client/js/tracekit.js
 
 server/*.js.map
+server/typings/*

@@ -5,10 +5,8 @@
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": true,
+        "sourceRoot": ".",
         "target": "ES5",
         "watch": true
-    },
-    "files": [
-        "**/*.ts"
-    ]
+    }
 }
