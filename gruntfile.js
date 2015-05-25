@@ -3,7 +3,8 @@ module.exports = function (grunt) {
 	
 	grunt.initConfig({
 		clean: {
-			sdk: ['client-sdk/compile']
+			sdk: ['client-sdk/compile'],
+			server: ['server/compile/**/*', '!server/compile/node_modules/**', '!server/compile/package.json'] 
 		},
 		shell: {		
 			exec: {
@@ -31,6 +32,13 @@ module.exports = function (grunt) {
 			'clean:sdk',
 			"shell:exec:cd client-sdk/js && tsc",
 			'copy:demo_js' 
+		]);
+	});
+	
+	grunt.registerTask('server', function () {
+		grunt.task.run([
+			'clean:server',
+			'shell:exec:cd server && tsc'
 		]);
 	});
 };

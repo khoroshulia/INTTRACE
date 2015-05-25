@@ -1,5 +1,9 @@
 node_modules
 .idea
-compile
+.DS_Store
 
+client-sdk/js/compile
 demo/client/js/tracekit.js
+
+server/compile/*
+!server/compile/package.json
