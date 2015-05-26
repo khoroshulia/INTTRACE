@@ -1,10 +1,11 @@
 node_modules
 .idea
+.settings
 .DS_Store
 
 client-sdk/js/compile
 demo/client/js/tracekit.js
 
-server/*.js.map
-server/*.js
+server/**/*.js.map
+server/**/*.js
 server/typings/*

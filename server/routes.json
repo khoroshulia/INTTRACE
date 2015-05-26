@@ -1,0 +1,5 @@
+{
+    "get /users users.getUsers": [
+        "request-logger"
+    ]
+}

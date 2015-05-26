@@ -1,12 +1,12 @@
 /// <reference path="typings/express/express.d.ts" />
 
 import express = require('express');
+import Router = require('./router');
+import middleware = require('./middleware');
 
 var app = express();
-//    middleware = require('./middleware'),
-//    Router = require('./router');
 
-//middleware(express, app, new Router());
+middleware(express, app, new Router());
 
 var server = app.listen(3000, function () {
     var address = server.address();
