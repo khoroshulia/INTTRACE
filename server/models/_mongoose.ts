@@ -2,7 +2,7 @@
 
 
 import mongoose = require('mongoose');
-import config = require('../config');
+import config = require('../config/index');
 
 mongoose.connect(
     config.db.connection + '/' + config.db.name,

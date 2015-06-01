@@ -1,8 +1,8 @@
-exports.runGenerator = function (g) {
-    var it = g(), ret;
+function RunGenerators(g: Function) {
+    var it = g(), ret: any;
 
     // asynchronously iterate over generator
-    (function iterate(val){
+    (function iterate(val: any){
         ret = it.next( val );
 
         if (!ret.done) {
@@ -19,5 +19,7 @@ exports.runGenerator = function (g) {
                 }, 0 );
             }
         }
-    })();
-};
+    })(null);
+}
+
+export = RunGenerators;

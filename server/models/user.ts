@@ -3,9 +3,26 @@
 import crypto = require('crypto');
 import mongoose = require('./_mongoose');
 
-var Schema = mongoose.Schema;
+interface IUser extends mongoose.Document {
+    username: string;
+    hashedPassword: string;
+    salt: string;
+    email: string;
+    created: Date;
+    firstName: string;
+    lastName: string;
+}
 
-var User: mongoose.Schema = new Schema({
+interface IUserSchemaMethods {
+    encryptPassword(password: string): string;
+    checkPassword(password: string): boolean;
+}
+
+interface IUserSchema extends mongoose.Schema{
+    methods: IUserSchemaMethods;
+}
+
+var User: any = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
@@ -27,32 +44,19 @@ var User: mongoose.Schema = new Schema({
         type: Date,
         'default': Date.now
     },
-
     firstName: String,
     lastName: String
 });
 
-interface IUser extends mongoose.Document {
-    username: string;
-    hashedPassword: string;
-    salt: string;
-    email: string;
-    created: Date;
-    firstName: string;
-    lastName: string;
-}
-
-
-//User.methods.encryptPassword = function (password) {
-User.methods.encryptPassword = function (password) {
+User.methods.encryptPassword = function (password: string) {
     return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };
 
 
 User.virtual('password')
-    .set(function (password) {
+    .set(function (password: string) {
         this._plainPassword = password;
-        this.salt = Math.random() + '';
+        this.salt = String(Math.random());
         this.hashedPassword = this.encryptPassword(password);
     })
     .get(function () {
@@ -60,7 +64,7 @@ User.virtual('password')
     });
 
 
-User.methods.checkPassword = function (password) {
+User.methods.checkPassword = function (password: string) {
     return this.encryptPassword(password) === this.hashedPassword;
 };
 

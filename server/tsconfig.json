@@ -6,7 +6,6 @@
         "preserveConstEnums": true,
         "sourceMap": true,
         "sourceRoot": ".",
-        "target": "ES5",
-        "watch": true
+        "target": "ES5"
     }
 }

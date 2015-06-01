@@ -1,7 +1,7 @@
 ///<reference path="../typings/tsd.d.ts"/>
 
 import express = require('express');
-import config = require('../config');
+import config = require('../config/index');
 import HttpError = require('../errors/http-error');
 
 function sendHttpError (error: HttpError, req: express.Request, res: express.Response) {

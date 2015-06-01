@@ -34,11 +34,25 @@ module.exports = function (grunt) {
 			'copy:demo_js' 
 		]);
 	});
-	
-	grunt.registerTask('server', function () {
+
+	grunt.registerTask('server-initiate', function () {
+		grunt.task.run([
+			'shell:exec:cd server && tsd reinstall',
+			'shell:exec:cd server && npm install'
+		]);
+	});
+
+	grunt.registerTask('server-compile', function () {
 		grunt.task.run([
 			'clean:server',
 			'shell:exec:cd server && tsc'
+		]);
+	});
+
+	grunt.registerTask('server-watch', function () {
+		grunt.task.run([
+			'clean:server',
+			'shell:exec:cd server && tsc --watch'
 		]);
 	});
 };

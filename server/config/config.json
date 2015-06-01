@@ -1,4 +1,5 @@
 {
+    "project": "INTTRACE",
     "debug": true,
     "port": 3000,
 

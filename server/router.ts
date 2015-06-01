@@ -1,11 +1,10 @@
-///<reference path="typings/express/express.d.ts"/>
-///<reference path="typings/node/node.d.ts"/>
+///<reference path="typings/tsd.d.ts"/>
 
 import express = require('express');
 import fs = require('fs');
 
 class Router {
-    private router: Object;
+    public router: express.Router;
 
     constructor () {
         this.router = express.Router();
@@ -14,9 +13,12 @@ class Router {
         this.parseRoutes(routes);
     }
 
-    parseRoutes(routes) {
-        var _routes = [], router = this.router;
-        for (var route in routes) {
+    parseRoutes(routes: Object) {
+        var _routes: Array<Array<any>> = [],
+            router:express.Router = this.router,
+            route: string;
+
+        for (route in routes) {
             if (routes.hasOwnProperty(route)) {
                 _routes.push([route, routes[route]]);
             }
@@ -29,10 +31,10 @@ class Router {
                 url = artifacts[1],
                 controllerAction = artifacts[2],
                 routeArgs = [url],
-                Controller,
-                controller;
+                Controller: any,
+                controller: Object;
 
-            middleware.forEach(function (mw) {
+            middleware.forEach(function (mw: string) {
                 try {
                     mw = require('./middleware/' + mw);
                     routeArgs.push(mw);
@@ -46,7 +48,7 @@ class Router {
                     controllerAction = controllerAction.split('.');
                     Controller = require('./controllers/' + controllerAction[0]);
                     controller = new Controller();
-                    var action = controller[controllerAction[1]];
+                    var action: any = controller[controllerAction[1]];
 
                     if (typeof action === 'function') {
                         action = action.bind(controller);

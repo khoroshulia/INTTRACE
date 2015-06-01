@@ -1,8 +1,9 @@
 ///<reference path="typings/tsd.d.ts"/>
 
 import path = require('path');
+import express = require('express');
 
-function Middleware (express, app, router) {
+function Middleware (express: any, app: express.Application, router: express.Router) {
     //var
     // config = require('../config'),
 
@@ -72,7 +73,7 @@ function Middleware (express, app, router) {
     /**
      * Router
      * */
-    app.use('/', router.router);
+    app.use('/', router);
 
 }
 
